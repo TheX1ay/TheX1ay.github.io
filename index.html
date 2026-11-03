@@ -1,14 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Haohan Xue</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haohan Xue</title>
+<meta name="description" content="Haohan Xue — research on question answering over virtual knowledge graphs, Text-to-SPARQL, and silent failures in LLM agents.">
+<meta name="author" content="Haohan Xue">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Haohan Xue">
+<meta property="og:description" content="Research on question answering over virtual knowledge graphs, and on LLM agents that fail quietly.">
+<meta property="og:url" content="https://thex1ay.github.io/">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <main>
-    <h1>Haohan Xue</h1>
-    <p>Site under construction.</p>
-  </main>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap wrap--wide masthead__inner">
+    <a class="masthead__name" href="#top">Haohan&nbsp;Xue</a>
+    <nav class="masthead__nav" aria-label="Sections">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ─────────────────────────  HERO  ───────────────────────── -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <p class="eyebrow">[Ph.D. candidate] · [Institution / Lab]</p>
+      <h1 class="hero__name">Haohan Xue</h1>
+      <p class="hero__lede">
+        I study how LLM agents fail <em>quietly</em> on knowledge graphs —
+        and how to make them say “I don’t know” instead of returning a
+        confident wrong answer.
+      </p>
+      <ul class="linkrow">
+        <li><a href="mailto:[email]">Email</a></li>
+        <li><a href="https://github.com/TheX1ay">GitHub</a></li>
+        <li><a href="#" data-todo="Google Scholar URL">Scholar</a></li>
+        <li><a href="#" data-todo="CV PDF">CV</a></li>
+        <li><a href="#" data-todo="ORCID URL">ORCID</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────  ABOUT  ───────────────────────── -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <h2 class="label">About</h2>
+      <div class="prose">
+        <p>
+          I work on question answering over <strong>virtual knowledge graphs</strong>
+          (VKGs), where a SPARQL query can be syntactically valid, execute without
+          error, and still return a wrong or empty answer. My research treats these
+          <em>silent failures</em> as the central problem rather than an edge case:
+          I build pipelines that diagnose why a query failed, verify candidates
+          before trusting them, and abstain when no reliable signal exists.
+        </p>
+        <p>
+          More broadly I am interested in the reliability and evaluation of LLM
+          agents over structured data — the gap between “the system ran” and
+          “the system was right”.
+        </p>
+        <p class="placeholder">
+          [One or two sentences of background: degree, advisor, prior affiliation,
+          what you are looking for next.]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────  RESEARCH  ───────────────────────── -->
+  <section class="section section--rule" id="research">
+    <div class="wrap">
+      <h2 class="label">Research</h2>
+      <div class="prose">
+        <p class="lead">
+          A VKG exposes an ontology through a mapping layer that does not cover
+          every predicate. So these systems break at <em>retrieval</em>, not at
+          generation — and they break silently.
+        </p>
+      </div>
+    </div>
+
+    <article class="feature">
+      <div class="wrap feature__inner">
+        <p class="feature__index">01</p>
+        <div class="feature__body">
+          <h3 class="feature__title">Navigating virtual knowledge graphs</h3>
+          <p>
+            An active-ontology pipeline: construct an ontology view, index its
+            elements, link question mentions, expand candidate subgraphs
+            iteratively, rerank them, and only then emit executable SPARQL.
+            The claim is that constraining the search space before generation
+            removes most of the failure modes that post-hoc prompting cannot.
+          </p>
+          <p class="feature__meta">
+            <a href="https://github.com/TheX1ay/Navigate-VKG">Navigate-VKG</a>
+            <span aria-hidden="true">·</span>
+            <a href="#" data-todo="paper PDF">Paper</a>
+          </p>
+          <figure class="figure">
+            <div class="figure__frame">
+              <span>[ framework.png ]</span>
+            </div>
+            <figcaption>Pipeline overview. Figure from the paper.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature feature--invert">
+      <div class="wrap feature__inner">
+        <p class="feature__index">02</p>
+        <div class="feature__body">
+          <h3 class="feature__title">Triaging silent failures</h3>
+          <p>
+            ATTEST routes each failure by the diagnostic signal it actually
+            exposes: sparse ontology targets go to iterative repair, dense
+            targets to a single-shot direct probe. A deterministic, zero-LLM
+            verifier catches AST-level errors before execution; failures with no
+            usable signal are <em>admitted</em> rather than retried. Successful
+            repairs are indexed by query skeleton and error-code multiset, so
+            transfer flows across structures rather than exact matches.
+          </p>
+          <p class="feature__meta">
+            <a href="https://github.com/TheX1ay/ATTEST">ATTEST</a>
+            <span aria-hidden="true">·</span>
+            <a href="#" data-todo="paper PDF">Paper</a>
+          </p>
+          <figure class="figure">
+            <div class="figure__frame">
+              <span>[ framework.png ]</span>
+            </div>
+            <figcaption>Two-layer meta-routing. Figure from the paper.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <div class="wrap">
+      <p class="note note--indent">
+        Also: graph-based retrieval augmentation for VKG question answering
+        (<a href="https://github.com/TheX1ay/CGRAG4VKG">CGRAG4VKG</a>).
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────  PUBLICATIONS  ───────────────────────── -->
+  <section class="section section--rule" id="publications">
+    <div class="wrap">
+      <h2 class="label">Publications</h2>
+
+      <ol class="pubs">
+        <li class="pub">
+          <p class="pub__year">[2026]</p>
+          <div class="pub__body">
+            <h3 class="pub__title">
+              ATTEST: Abstention and Trustworthy Evidence for Silent-failure
+              Triage in Virtual Knowledge Graph Question Answering
+            </h3>
+            <p class="pub__authors">Haohan Xue</p>
+            <p class="pub__venue placeholder">[Venue, year] · [under review / accepted]</p>
+            <p class="pub__links">
+              <a href="#" data-todo="paper PDF">Paper</a>
+              <a href="https://github.com/TheX1ay/ATTEST">Code</a>
+            </p>
+            <details class="bib">
+              <summary>BibTeX</summary>
+              <pre><code>@inproceedings{xue2026attest,
+  title     = {ATTEST: Abstention and Trustworthy Evidence for
+               Silent-failure Triage in Virtual Knowledge Graph
+               Question Answering},
+  author    = {Xue, Haohan},
+  booktitle = {[Venue]},
+  year      = {2026}
+}</code></pre>
+            </details>
+          </div>
+        </li>
+
+        <li class="pub">
+          <p class="pub__year">[2025]</p>
+          <div class="pub__body">
+            <h3 class="pub__title">
+              Navigate-VKG: Mitigating Silent Failures in Question Answering
+              over Virtual Knowledge Graphs
+            </h3>
+            <p class="pub__authors">Haohan Xue</p>
+            <p class="pub__venue placeholder">[Venue, year] · [under review / accepted]</p>
+            <p class="pub__links">
+              <a href="#" data-todo="paper PDF">Paper</a>
+              <a href="https://github.com/TheX1ay/Navigate-VKG">Code</a>
+            </p>
+            <details class="bib">
+              <summary>BibTeX</summary>
+              <pre><code>@inproceedings{xue2025navigate,
+  title     = {Navigate-VKG: Mitigating Silent Failures in Question
+               Answering over Virtual Knowledge Graphs},
+  author    = {Xue, Haohan},
+  booktitle = {[Venue]},
+  year      = {2025}
+}</code></pre>
+            </details>
+          </div>
+        </li>
+      </ol>
+
+      <p class="note placeholder">[Add entries in reverse chronological order. Delete this line once there are three or more.]</p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────  PROJECTS  ───────────────────────── -->
+  <section class="section section--rule" id="projects">
+    <div class="wrap wrap--wide">
+      <h2 class="label">Projects</h2>
+      <ul class="cards">
+        <li class="card">
+          <p class="card__name"><a href="https://github.com/TheX1ay/ATTEST">ATTEST</a></p>
+          <p class="card__desc">Two-layer meta-routing for VKG QA, with a deterministic verifier, iterative repair, and error-code-keyed skeleton memory.</p>
+          <p class="card__meta"><span class="dot dot--py"></span>Python <span class="sep">·</span>research code</p>
+        </li>
+        <li class="card">
+          <p class="card__name"><a href="https://github.com/TheX1ay/Navigate-VKG">Navigate-VKG</a></p>
+          <p class="card__desc">Active ontology indexing and iterative subgraph expansion for Text-to-SPARQL over virtual knowledge graphs.</p>
+          <p class="card__meta"><span class="dot dot--py"></span>Python <span class="sep">·</span>research code</p>
+        </li>
+        <li class="card">
+          <p class="card__name"><a href="https://github.com/TheX1ay/CGRAG4VKG">CGRAG4VKG</a></p>
+          <p class="card__desc">Graph-based retrieval augmentation for question answering over virtual knowledge graphs.</p>
+          <p class="card__meta"><span class="dot dot--py"></span>Python</p>
+        </li>
+        <li class="card card--ghost">
+          <p class="card__name">[Repo name]</p>
+          <p class="card__desc">[One line on what it does and why it exists. Only include repositories you are willing to defend.]</p>
+          <p class="card__meta">[Language]</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────  NEWS — keep commented out until there is real news  ───────────
+  <section class="section section--rule" id="news">
+    <div class="wrap">
+      <h2 class="label">News</h2>
+      <ul class="news">
+        <li><time datetime="2026-11">2026-11</time> [Something that actually happened.]</li>
+      </ul>
+    </div>
+  </section>
+  ─────────────────────────────────────────────────────────────────────────── -->
+
+</main>
+
+<footer class="footer">
+  <div class="wrap wrap--wide footer__inner">
+    <p class="footer__mail"><a href="mailto:[email]">[email]</a></p>
+    <p class="footer__meta">Last updated <time datetime="2026-11">November 2026</time></p>
+  </div>
+</footer>
+
 </body>
 </html>

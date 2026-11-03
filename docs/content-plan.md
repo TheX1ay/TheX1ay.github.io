@@ -212,6 +212,34 @@ Recommendation: **A as the base, borrowing D's project cards.** The content is
 research-first, so the typography should carry it, but the two framework figures
 deserve card treatment.
 
+### Decision — 2026-11-03
+
+Chose **`claude`** from `design-style-library` (67 styles surveyed, 4 finalists:
+`claude`, `terracotta`, `refined`, `codex`).
+
+Why: the brief is literally a *research-journal aesthetic* — warm ivory parchment
+`#FAF9F6` instead of clinical white, near-black ink `#141413`, one earthy clay
+accent held in reserve, zero shadows, hard edges, emphasis by typography and
+underline rather than colour. That matches a page whose job is to be read, not
+admired.
+
+Rejected:
+
+- `terracotta` — DM Serif Display reads as a lifestyle blog; undercuts seriousness.
+- `refined` — Playfair Display is specified for *body* text; high-contrast serif
+  at 16px is hard to read.
+- `codex` — too empty to hold two framework figures.
+
+Adaptations made while building (all noted in `assets/style.css`):
+
+- `--ink-45` darkened `#7A776F → #6E6B64`: the original was 4.26:1 on paper and
+  failed WCAG AA. Now 5.1:1.
+- `--measure` reduced `66ch → 60ch`: 66ch measured 640px ≈ 75 characters, past
+  the comfortable range.
+- Dark mode does **not** flip the inverted band to ivory — a page-wide ivory
+  block on near-black reads as a rendering fault. It becomes one elevated
+  surface (`#1C1B19`) instead.
+
 ---
 
 ## 7. Build order
